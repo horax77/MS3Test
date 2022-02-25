@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
-	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns="http://www.mulesoft.org/schema/mule/core"
-	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
-	<flow name="ms3contactsFlow" doc:id="9bd0a893-38fd-4852-adef-07e3a069f031" >
-		<scheduler doc:name="Scheduler" doc:id="0fbf61fb-face-4349-8bdc-4c9dbeba15f3" >
-			<scheduling-strategy >
-				<fixed-frequency timeUnit="DAYS"/>
-			</scheduling-strategy>
-		</scheduler>
-		<logger level="INFO" doc:name="Logger" doc:id="b384ed11-2d20-4ac9-a896-cc028ace951a" />
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<flow name="ms3contactsFlow1" doc:id="c21f472d-75bb-49b9-a41a-d54ef71b6730" >
+		<http:listener doc:name="Listener" doc:id="d2d0b8b2-8dc6-4317-a598-a68601efe869" config-ref="HTTP_Listener_config" path="${https.path}"/>
+		<set-variable value='#[attributes.headers."x-correlation-id"]' doc:name="correlationId" doc:id="0e001812-ed37-4e02-9c63-efd690e74942" variableName="correlationId"/>
+		<apikit:router doc:name="APIkit Router" doc:id="c004cee0-04c1-4a24-a8e9-a40c4c1f73a8" config-ref="Router"/>
 	</flow>
-	<flow name="globalFlow" doc:id="d13f3636-c8de-42ef-b4ad-039bb394eab3" >
-		<apikit:router doc:name="APIkit Router" doc:id="be984f8f-5f80-4e0d-aca1-f450c1257394" config-ref="Router"/>
+	<flow name="ms3contactsFlow2" doc:id="fa038244-5faa-4024-922a-46a23fce16cb" >
+		<http:listener doc:name="Listener" doc:id="f5cae533-10bb-4c81-bb4f-ec0408fe52a1" config-ref="HTTP_Listener_config" path="${https.pathConsole}"/>
+		<apikit:console doc:name="APIkit Console" doc:id="7cb71620-2bf4-46e9-9a96-489d27b2e72d" config-ref="Router"/>
 	</flow>
-	<flow name="globalFlow1" doc:id="66e9b9f7-9311-4391-816b-5bcd69258ddb" >
-		<apikit:console doc:name="APIkit Console" doc:id="6f6e3c69-16eb-484b-b439-d26664fd4fb0" config-ref="Router"/>
-	</flow>
+
 	
-	</mule>
+</mule>

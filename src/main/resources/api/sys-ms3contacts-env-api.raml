@@ -15,11 +15,11 @@ types:
   error-type: 
      
 traits:
-  std-authentication-trait:  !include traits/client-id-enforcement-trait.raml
-  std-correlationId-trait:  !include traits/correlation-id-trait.raml
-  pageable-trait:  !include traits/pageable-trait.raml
-  orderable-trait: !include traits/orderable-trait.raml
-  filterable-trait: !include traits/filterable-trait.raml
+  std-authentication-trait:  !include ../api/traits/client-id-enforcement-trait.raml
+  std-correlationId-trait:  !include ../api/traits/correlation-id-trait.raml
+  pageable-trait:  !include ../api/traits/pageable-trait.raml
+  orderable-trait: !include ../api/traits/orderable-trait.raml
+  filterable-trait: !include ../api/traits/filterable-trait.raml
 
 
 /contacts:
@@ -34,7 +34,7 @@ traits:
           application/json:
             type: array
             items: contact-type              
-            example: !include ../examples/contact-array-type-example.raml
+            example: !include ../api/examples/contact-array-type-example.raml
   post:
     is: [std-authentication-trait,std-correlationId-trait]
     displayName: Add a new Contact
@@ -42,7 +42,7 @@ traits:
     body:
       application/json:
         type: contact-type
-        example: !include ../examples/contact-object-type-example.raml
+        example: !include ../api/examples/contact-object-type-example.raml
      
     responses:
       201:
@@ -65,7 +65,7 @@ traits:
           body:
             application/json:
               type: contact-type              
-              example: !include ../examples/contact-object-type-example.raml
+              example: !include ../api/examples/contact-object-type-example.raml
     put:
       is: [std-authentication-trait,std-correlationId-trait]
       displayName: Update a Contact
@@ -73,7 +73,7 @@ traits:
       body:
         application/json:
           type: contact-type
-          example: !include ../examples/contact-object-type-example.raml         
+          example: !include examples/contact-object-type-example.raml         
       responses:
         200:
 
@@ -94,7 +94,7 @@ traits:
         body:
           application/json:
             type: contact-address-type
-            example: !include ../examples/address-example.raml       
+            example: !include examples/address-example.raml       
         responses:
           201:
             body:
@@ -113,7 +113,7 @@ traits:
           body:
             application/json:
               type: contact-address-type
-              example: !include ../examples/address-example.raml   
+              example: !include examples/address-example.raml   
           responses:
             200:
 
@@ -125,7 +125,7 @@ traits:
             200:
 
     /communications:
-      displayName: ContactInfo
+      displayName: Communications
       description: 'General operations: GET, POST'
       post:
         displayName: Add a new Communication channel
