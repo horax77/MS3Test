@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+	xmlns:secure-properties="http://www.mulesoft.org/schema/mule/secure-properties" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/secure-properties http://www.mulesoft.org/schema/mule/secure-properties/current/mule-secure-properties.xsd">
+	<flow name="ms3contactsFlow" doc:id="9bd0a893-38fd-4852-adef-07e3a069f031" >
+		<scheduler doc:name="Scheduler" doc:id="0fbf61fb-face-4349-8bdc-4c9dbeba15f3" >
+			<scheduling-strategy >
+				<fixed-frequency timeUnit="DAYS"/>
+			</scheduling-strategy>
+		</scheduler>
+		<logger level="INFO" doc:name="Logger" doc:id="b384ed11-2d20-4ac9-a896-cc028ace951a" />
+	</flow>
+	<flow name="globalFlow" doc:id="d13f3636-c8de-42ef-b4ad-039bb394eab3" >
+		<apikit:router doc:name="APIkit Router" doc:id="be984f8f-5f80-4e0d-aca1-f450c1257394" config-ref="Router"/>
+	</flow>
+	<flow name="globalFlow1" doc:id="66e9b9f7-9311-4391-816b-5bcd69258ddb" >
+		<apikit:console doc:name="APIkit Console" doc:id="6f6e3c69-16eb-484b-b439-d26664fd4fb0" config-ref="Router"/>
+	</flow>
+	
+	</mule>
